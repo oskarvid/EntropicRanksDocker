@@ -5,7 +5,7 @@ population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
 library("RankProd")
 library("entropy")
 library("factoextra")
-setwd("/in_out")
+setwd("/data")
 
 #this will be the line of default values after testing
 #                        |
