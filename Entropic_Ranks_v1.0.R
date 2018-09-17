@@ -1,19 +1,9 @@
-arguments <- commandArgs(TRUE)
-data_under_analysis <- read.table(arguments[1],sep="\t",dec=".",header=TRUE)
-population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
+require("RankProd")
+#reliable compatibility with RankProd versions up to 2.44.0
+require("entropy")
+require("factoextra")
 
-library("RankProd")
-library("entropy")
-library("factoextra")
-setwd("/data")
-
-#this will be the line of default values after testing
-#                        |
-#                        |
-#                        V
-#entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=FALSE,create_output_files=FALSE,is_logged=TRUE,logbase=2,huge_feature_list=FALSE)
-
-entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=TRUE,create_output_files=TRUE,is_logged=TRUE,logbase=2,huge_feature_list=FALSE)
+entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=FALSE,create_output_files=FALSE,is_logged=TRUE,logbase=2,huge_feature_list=FALSE)
 {
   if (is.null(data_origin))
     data_origin <- rep(1,length(population_vector))
@@ -120,9 +110,9 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
   
   if (verbose)
   {
-    cat("Calculating entropies of ",length(entropy_plotter)," ovelapping windows","\n","Suggested cutoff at feature no ",seq(length(entropy_clusters$cluster))[entropy_clusters$cluster!=entropy_clusters$cluster[1]][1]-1,", at a mean entropy of ",mean(entropy_plotter[1:seq(length(entropy_clusters$cluster))[entropy_clusters$cluster!=entropy_clusters$cluster[1]][1]]),"\n","Last 1/3 minimum entropy: ",min(entropy_plotter[floor(length(entropy_plotter)*2/3):length(entropy_plotter)]),"\n",sep="")
-    barplot(entropy_plotter,border=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==entropy_clusters$cluster[1])+1)],col=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==entropy_clusters$cluster[1])+1)],xlab=c("Granularity = ",step_up),ylab=c("Window size = ",window_size),main=c(bins," bins"),names.arg=seq(length(entropy_plotter))*step_up)
-    barplot(entropy_clusters$silinfo$widths$sil_width,border=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==entropy_clusters$cluster[1])+1],col=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==entropy_clusters$cluster[1])+1],ylim=c(-0.3,1),ylab="Silhouette width",xlab="Clustered elements",main="K-means clustering quality")
+    cat("Calculating entropies of ",length(entropy_plotter)," ovelapping windows","\n","Suggested cutoff at feature no ",seq(length(entropy_clusters$cluster))[entropy_clusters$cluster!=as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1][1]-1,", at a mean entropy of ",mean(entropy_plotter[1:seq(length(entropy_clusters$cluster))[entropy_clusters$cluster!=as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1][1]-1]),"\n","Last 1/3 minimum entropy: ",min(entropy_plotter[floor(length(entropy_plotter)*2/3):length(entropy_plotter)]),"\n",sep="")
+    barplot(entropy_plotter,border=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1)],col=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1)],xlab=c("Granularity = ",step_up),ylab=c("Window size = ",window_size),main=c(bins," bins"),names.arg=seq(length(entropy_plotter))*step_up)
+    barplot(entropy_clusters$silinfo$widths$sil_width,border=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1],col=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1],ylim=c(-0.3,1),ylab="Silhouette width",xlab="Clustered elements",main="K-means clustering quality")
   }
   if (export_plots)
   {
@@ -131,19 +121,12 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
     if(!file.exists(path))
       dir.create(path)
     png(file=file.path(path,paste("Entropy - ",bins," bins - ",window_size," window size",".png", sep = "")),width=640,height=640)
-    barplot(entropy_plotter,border=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==entropy_clusters$cluster[1])+1)],col=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==entropy_clusters$cluster[1])+1)],xlab=c("Granularity = ",step_up),ylab=c("Window size = ",window_size),main=c(bins," bins"),names.arg=seq(length(entropy_plotter))*step_up)
+    barplot(entropy_plotter,border=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1)],col=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1)],xlab=c("Granularity = ",step_up),ylab=c("Window size = ",window_size),main=c(bins," bins"),names.arg=seq(length(entropy_plotter))*step_up)
     dev.off()
     png(file=file.path(path,paste("Clustering quality - ",bins," bins - ",window_size," window size",".png", sep = "")),width=640,height=640)
-    barplot(entropy_clusters$silinfo$widths$sil_width,border=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==entropy_clusters$cluster[1])+1],col=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==entropy_clusters$cluster[1])+1],ylim=c(-0.3,1),ylab="Silhouette width",xlab="Clustered elements",main="K-means clustering quality")
+    barplot(entropy_clusters$silinfo$widths$sil_width,border=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1],col=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1],ylim=c(-0.3,1),ylab="Silhouette width",xlab="Clustered elements",main="K-means clustering quality")
     dev.off()
   }
   
-  return((seq(length(entropy_clusters$cluster))[entropy_clusters$cluster!=entropy_clusters$cluster[1]][1]-1)*step_up)
+  return(seq(length(entropy_clusters$cluster))[entropy_clusters$cluster!=as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1][1]-1)
 }
-
-#this will be the line of default values after testing
-#                        |
-#                        |
-#                        V
-#res = entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
-res = entropic_ranks(data_under_analysis,population_vector)
