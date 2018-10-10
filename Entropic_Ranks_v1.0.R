@@ -159,4 +159,5 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
 #                        |
 #                        V
 #res = entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
-res = entropic_ranks(data_under_analysis,population_vector,huge)
+#res = entropic_ranks(data_under_analysis,population_vector,huge)
+entropic_ranks(data_under_analysis,population_vector,huge)
