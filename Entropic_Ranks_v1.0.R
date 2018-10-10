@@ -1,7 +1,7 @@
 arguments <- commandArgs(TRUE)
 data_under_analysis <- read.table(arguments[1],sep="\t",dec=".",header=TRUE)
 population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
-huge_feature_list <- as.logical(arguments[3])
+huge_feature_list <- as.logical(sum(as.integer(arguments=="huge_feature_list")))
 library("RankProd")
 library("entropy")
 library("factoextra")
