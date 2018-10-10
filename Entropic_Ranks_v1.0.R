@@ -11,43 +11,17 @@ is_logged <- as.logical(arguments[9])
 logbase <- as.integer(arguments[10])
 huge_feature_list <- as.logical(arguments[11])
 
-#data_under_analysis="data_dable.txt"
-#population_vector="population_vector.txt"
-#data_origin=NULL
-#granularity=1
-#supervised=FALSE
-#process_log=FALSE
-#export_plots=FALSE
-#create_output_files=FALSE
-#is_logged=TRUE
-#logbase=2
-#huge_feature_list=FALSE
-
 library("RankProd")
 library("entropy")
 library("factoextra")
 setwd("/data")
 
-#this will be the line of default values after testing
-#                        |
-#                        |
-#                        V
-#entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=FALSE,create_output_files=FALSE,is_logged=TRUE,logbase=2,huge_feature_list=FALSE)
-
-#method
-
-entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=TRUE,create_output_files=TRUE,is_logged=TRUE,logbase=2,huge_feature_list=FALSE)
+entropic_ranks <- function(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
 {
-  message(data_origin)
   if (is.null(data_origin))
     data_origin <- rep(1,length(population_vector))
   
-  message(population_vector)
-  message(length(population_vector))
-  message(length(data_origin))
-  message(data_origin)
-  
-  message("Calculating Rank Products. May take a lot of time, depending on data size.")
+  message("Calculating Rank Products. May take a long time, depending on data set size.")
   comparison <- RPadvance(data_under_analysis,cl=population_vector,origin=data_origin,logged=is_logged,na.rm=FALSE,gene.names=rownames(data_under_analysis),plot=process_log,huge=TRUE)
   if (huge_feature_list){
     message("Investigating only the first 5000 features.")
@@ -169,13 +143,5 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
   
   return(seq(length(entropy_clusters$cluster))[entropy_clusters$cluster!=as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1][1]-1)
 }
-
-#this will be the line of default values after testing
-#                        |
-#                        |
-#                        V
-#entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
-
-#entropic_ranks(data_under_analysis,population_vector)
 
 entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
