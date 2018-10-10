@@ -20,12 +20,14 @@ setwd("/data")
 
 entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=TRUE,create_output_files=TRUE,is_logged=TRUE,logbase=2,huge_feature_list=FALSE)
 {
+  message(data_origin)
   if (is.null(data_origin))
     data_origin <- rep(1,length(population_vector))
   
   message(population_vector)
   message(length(population_vector))
   message(length(data_origin))
+  message(data_origin)
   
   message("Calculating Rank Products. May take a lot of time, depending on data size.")
   comparison <- RPadvance(data_under_analysis,cl=population_vector,origin=data_origin,logged=is_logged,na.rm=FALSE,gene.names=rownames(data_under_analysis),plot=process_log,huge=TRUE)
