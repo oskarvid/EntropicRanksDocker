@@ -1,12 +1,10 @@
 arguments <- commandArgs(TRUE)
 data_under_analysis <- read.table(arguments[1],sep="\t",dec=".",header=TRUE)
 population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
-huge_feature_list <- as.logical(sum(as.integer(arguments[3]=="huge_feature_list")))
+huge_feature_list <- as.logical(sum(as.integer(arguments=="huge_feature_list")) > 0)
 message(arguments)
 message(huge_feature_list)
-message(dim(data_under_analysis))
 message(length(population_vector))
-message(dim(population_vector))
 library("RankProd")
 library("entropy")
 library("factoextra")
@@ -25,6 +23,8 @@ entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NUL
   if (is.null(data_origin))
     data_origin <- rep(1,length(population_vector))
   
+  message(population_vector)
+  message(length(population_vector))
   message(length(data_origin))
   
   message("Calculating Rank Products. May take a lot of time, depending on data size.")
