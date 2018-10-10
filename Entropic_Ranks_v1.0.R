@@ -19,8 +19,8 @@ setwd("/data")
 
 #method
 
-#entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=TRUE,create_output_files=TRUE,is_logged=TRUE,logbase=2,huge_feature_list=FALSE)
-entropic_ranks <- function(data_under_analysis,population_vector,huge_feature_list=FALSE,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=TRUE,create_output_files=TRUE,is_logged=TRUE,logbase=2)
+#entropic_ranks <- function(data_under_analysis,population_vector,huge_feature_list=FALSE,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=TRUE,create_output_files=TRUE,is_logged=TRUE,logbase=2)
+entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=TRUE,create_output_files=TRUE,is_logged=TRUE,logbase=2,huge_feature_list=FALSE)
 {
   message(data_origin)
   if (is.null(data_origin))
