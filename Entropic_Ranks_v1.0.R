@@ -1,6 +1,7 @@
 arguments <- commandArgs(TRUE)
 data_under_analysis <- read.table(arguments[1],sep="\t",dec=".",header=TRUE)
 population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
+export_plots <- arguments[3]
 library("RankProd")
 library("entropy")
 library("factoextra")
@@ -147,4 +148,4 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
 #                        |
 #                        V
 #res = entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
-res = entropic_ranks(data_under_analysis,population_vector)
+res = entropic_ranks(data_under_analysis,population_vector,export_plots)
