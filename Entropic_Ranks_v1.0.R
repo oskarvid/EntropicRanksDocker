@@ -4,7 +4,7 @@ population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
 huge <- as.logical(sum(as.integer(arguments=="huge_feature_list")) > 0)
 
 message(arguments)
-message(huge_feature_list)
+message(huge)
 message(length(population_vector))
 library("RankProd")
 library("entropy")
