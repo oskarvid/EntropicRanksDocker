@@ -1,7 +1,7 @@
 arguments <- commandArgs(TRUE)
 data_under_analysis <- read.table(arguments[1],sep="\t",dec=".",header=TRUE)
 population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
-huge <- as.logical(sum(as.integer(arguments=="huge_feature_list")) > 0)
+huge_feature_list <- as.logical(sum(as.integer(arguments=="huge_feature_list")) > 0)
 
 message(arguments)
 message(huge)
@@ -160,4 +160,4 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
 #                        V
 #res = entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
 #res = entropic_ranks(data_under_analysis,population_vector,huge)
-entropic_ranks(data_under_analysis,population_vector,huge)
+entropic_ranks(data_under_analysis,population_vector,huge_feature_list)
