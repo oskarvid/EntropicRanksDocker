@@ -3,7 +3,8 @@ data_under_analysis <- read.table(arguments[1],sep="\t",dec=".",header=TRUE)
 population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
 if (arguments[3]!="null")
   data_origin <- read.table(arguments[3],sep="\t",dec=".",header=TRUE)[,1]
-else data_origin <- NULL
+else
+  data_origin <- NULL
 granularity <- as.integer(arguments[4])
 supervised <- as.logical(arguments[5])
 process_log <- as.logical(arguments[6])
