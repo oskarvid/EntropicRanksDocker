@@ -1,11 +1,7 @@
 arguments <- commandArgs(TRUE)
 data_under_analysis <- read.table(arguments[1],sep="\t",dec=".",header=TRUE)
 population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
-huge_feature_list <- as.logical(sum(as.integer(arguments=="huge_feature_list")) > 0)
 
-message(arguments)
-message(huge_feature_list)
-message(length(population_vector))
 library("RankProd")
 library("entropy")
 library("factoextra")
@@ -19,7 +15,6 @@ setwd("/data")
 
 #method
 
-#entropic_ranks <- function(data_under_analysis,population_vector,huge_feature_list=FALSE,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=TRUE,create_output_files=TRUE,is_logged=TRUE,logbase=2)
 entropic_ranks <- function(data_under_analysis,population_vector,data_origin=NULL,granularity=1,supervised=FALSE,process_log=FALSE,export_plots=TRUE,create_output_files=TRUE,is_logged=TRUE,logbase=2,huge_feature_list=FALSE)
 {
   message(data_origin)
@@ -158,6 +153,6 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
 #                        |
 #                        |
 #                        V
-#res = entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
-#res = entropic_ranks(data_under_analysis,population_vector,huge)
-entropic_ranks(data_under_analysis,population_vector,huge_feature_list)
+#entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
+
+entropic_ranks(data_under_analysis,population_vector)
