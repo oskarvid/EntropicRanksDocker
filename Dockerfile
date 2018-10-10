@@ -20,4 +20,6 @@ ADD Entropic_Ranks_v1.0.R /home/Entropic_Ranks/Entropic_Ranks.R
 
 WORKDIR /home/Entropic_Ranks
 
-CMD Rscript Entropic_Ranks.R /data/data_table.txt /data/population_vector.txt
+#CMD Rscript Entropic_Ranks.R /data/data_table.txt /data/population_vector.txt
+
+CMD Rscript Entropic_Ranks.R /data/data_table.txt /data/population_vector.txt null 1 FALSE FALSE TRUE TRUE TRUE 2 FALSE
