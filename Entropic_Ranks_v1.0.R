@@ -1,6 +1,27 @@
 arguments <- commandArgs(TRUE)
 data_under_analysis <- read.table(arguments[1],sep="\t",dec=".",header=TRUE)
 population_vector <- read.table(arguments[2],sep="\t",dec=".",header=TRUE)[,1]
+data_origin <- read.table(arguments[3],sep="\t",dec=".",header=TRUE)[,1]
+granularity <- as.integer(arguments[4])
+supervised <- as.logical(arguments[5])
+process_log <- as.logical(arguments[6])
+export_plots <- as.logical(arguments[7])
+create_output_files <- as.logical(arguments[8])
+is_logged <- as.logical(arguments[9])
+logbase <- as.integer(arguments[10])
+huge_feature_list <- as.logical(arguments[11])
+
+#data_under_analysis="data_dable.txt"
+#population_vector="population_vector.txt"
+#data_origin=NULL
+#granularity=1
+#supervised=FALSE
+#process_log=FALSE
+#export_plots=FALSE
+#create_output_files=FALSE
+#is_logged=TRUE
+#logbase=2
+#huge_feature_list=FALSE
 
 library("RankProd")
 library("entropy")
@@ -155,4 +176,6 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
 #                        V
 #entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
 
-entropic_ranks(data_under_analysis,population_vector)
+#entropic_ranks(data_under_analysis,population_vector)
+
+entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
