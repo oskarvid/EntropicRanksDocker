@@ -24,8 +24,8 @@ entropic_ranks <- function(data_under_analysis,population_vector,data_origin,gra
   message("Calculating Rank Products. May take a long time, depending on data set size.")
   comparison <- RPadvance(data_under_analysis,cl=population_vector,origin=data_origin,logged=is_logged,na.rm=FALSE,gene.names=rownames(data_under_analysis),plot=process_log,huge=TRUE)
   if (huge_feature_list){
-    message("Investigating only the first 5000 features.")
-    rank_product_lists <- topGene(comparison,num.gene=5000,logged=is_logged,logbase=logbase,gene.names=rownames(data_under_analysis))
+    message("Investigating only the first 20000 features.")
+    rank_product_lists <- topGene(comparison,num.gene=20000,logged=is_logged,logbase=logbase,gene.names=rownames(data_under_analysis))
   }else{
     rank_product_lists <- topGene(comparison,cutoff=0.99,method="pfp",logged=is_logged,logbase=logbase,gene.names=rownames(data_under_analysis))
   }
