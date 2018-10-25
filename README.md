@@ -28,7 +28,7 @@ is_logged - Set to TRUE if the values are log-transformed and you want to export
 
 logbase - The base of the log transformation. Ignored if supervised is set to TRUE or if create_output_files is set to FALSE. (default: 2)
 
-huge_feature_list - Only set to TRUE if the entropic_ranks fails to run due to huge feature lists returned by RankProd (e.g. more than 20000-30000 features) and you are sure that less than 500 are differentially expressed and information-rich. If TRUE, entropic_analysis will only investigate the first 5000 features and isolare information-rich features from among them. (default: FALSE)
+huge_feature_list - Only set to TRUE if the entropic_ranks fails to run due to huge feature lists returned by RankProd (e.g. more than 25000-30000 features) and you are sure that less than 1000 are differentially expressed and information-rich. If TRUE, entropic_analysis will only investigate the first 20000 features and isolare information-rich features from among them. (default: FALSE)
 
 
 # Examples of usage:
