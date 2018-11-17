@@ -2,8 +2,9 @@ FROM r-base:latest
 
 USER root
 
-RUN apt-get install apt-utils
-RUN apt-get update && apt-get -y upgrade
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+# RUN apt-get install apt-utils
+# RUN apt-get update && apt-get -y upgrade
 RUN apt-get install libcurl4-openssl-dev
 
 WORKDIR /tmp
