@@ -14,6 +14,7 @@ WORKDIR /tmp
 RUN wget https://bioconductor.org/packages/3.3/bioc/src/contrib/RankProd_2.44.0.tar.gz 
 RUN wget https://cran.r-project.org/src/contrib/entropy_1.2.1.tar.gz
 RUN R -e "update.packages(ask = FALSE)"
+RUN R -e "install.packages(c('ggplot2', 'abind', 'dendextend', 'FactoMineR', 'ggpubr', 'reshape2', 'ggrepel', 'tidyr'), update =T, ask = FALSE)"
 RUN R -e "install.packages(c('/tmp/RankProd_2.44.0.tar.gz','/tmp/entropy_1.2.1.tar.gz'), repos = NULL, type = 'source')"
 RUN R -e "install.packages('factoextra', dependencies = TRUE)"
 RUN cd .. && rm -R tmp
