@@ -24,6 +24,7 @@ RUN wget https://cran.r-project.org/src/contrib/entropy_1.2.1.tar.gz
 RUN apt-get install -y libxml2-dev
 # RUN R -e "install.packages('curl', dependencies = TRUE)"
 # RUN R -e "install.packages('webutils', dependencies = TRUE)"
+RUN R -e "install.packages('factoextra', dependencies = TRUE)"
 
 RUN cd .. && rm -R tmp
 
