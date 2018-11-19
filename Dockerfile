@@ -19,7 +19,7 @@ RUN apt-get -y upgrade
 # RUN aptitude -f install -y libcurl4-openssl-dev
 # RUN apt-get install -t unstable curl
 
-RUN apt install -t unstable libcurl-openssl-dev
+RUN apt-get install -t unstable libcurl4-openssl-dev
 
 
 
