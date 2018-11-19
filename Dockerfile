@@ -25,11 +25,13 @@ RUN R -e "install.packages(c('/tmp/RankProd_2.44.0.tar.gz','/tmp/entropy_1.2.1.t
 # RUN R -e "install.packages('xml-2.0', dependencies = TRUE)"
 # RUN apt-get install -y libxml2-dev
 # RUN aptitude -f install -y libxml2-dev
+
+RUN apt-get install -t unstable curl
 # RUN R -e "install.packages('curl', dependencies = TRUE)"
 # RUN R -e "install.packages('webutils', dependencies = TRUE)"
- RUN R -e "install.packages('factoextra', dependencies = TRUE)"
+RUN R -e "install.packages('factoextra', dependencies = TRUE)"
 
-# RUN apt-get install -t unstable curl
+
 
 RUN cd .. && rm -R tmp
 
