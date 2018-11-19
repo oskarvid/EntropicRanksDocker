@@ -25,7 +25,7 @@ RUN wget https://cran.r-project.org/src/contrib/entropy_1.2.1.tar.gz
 # RUN R -e "install.packages('xml-2.0', dependencies = TRUE)"
 # RUN apt-get install -y libxml2-dev
 # RUN aptitude -f install -y libxml2-dev
-RUN apt-get install musl-dev
+RUN apt-get install -y musl-dev
 # RUN apt-get install -t unstable curl
 # RUN R -e "install.packages('curl', dependencies = TRUE)"
 # RUN R -e "install.packages('webutils', dependencies = TRUE)"
