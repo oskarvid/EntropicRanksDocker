@@ -145,3 +145,6 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
 }
 
 entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,supervised,process_log,export_plots,create_output_files,is_logged,logbase,huge_feature_list)
+
+#Code written by Hector-Xavier de Lastic
+#Development & testing by Hector-Xavier de Lastic & Irene Liampa
