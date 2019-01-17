@@ -1,6 +1,5 @@
 FROM r-base:latest
 USER root
-#RUN apt-get update && apt-get -y upgrade && apt-get install -t unstable libcurl4-openssl-dev
 RUN apt-get update && apt-get -y upgrade && apt-get install libcurl4-openssl-dev
 
 WORKDIR /tmp
