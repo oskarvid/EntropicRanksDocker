@@ -148,3 +148,6 @@ entropic_ranks(data_under_analysis,population_vector,data_origin,granularity,sup
 
 #Code written by Hector-Xavier de Lastic
 #Development & testing by Hector-Xavier de Lastic & Irene Liampa
+#Contact:
+#hector.xavier.de.lastic@gmail.com
+#irini.liampa@gmail.com
