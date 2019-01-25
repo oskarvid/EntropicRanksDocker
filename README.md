@@ -28,7 +28,7 @@ is_logged - Set to TRUE if the values are log-transformed and you want to export
 
 logbase - The base of the log transformation. Ignored if supervised is set to TRUE or if create_output_files is set to FALSE. (default: 2)
 
-huge_feature_list - Only set to TRUE if the entropic_ranks fails to run due to huge feature lists returned by RankProd (e.g. more than 25000-30000 features) and you are sure that less than 1000 are differentially expressed and information-rich. If TRUE, entropic_analysis will only investigate the first 20000 features and isolare information-rich features from among them. (default: FALSE)
+huge_feature_list - Only set to TRUE if the entropic_ranks fails to run due to huge feature lists returned by RankProd (e.g. more than 25000-30000 features) and you can be reasonably sure that less than 1000 are differentially expressed and information-rich. If TRUE, entropic_analysis will only investigate the first 20000 features and isolare information-rich features from among them. The issue may consistently appear due to RAM shortage when analyzing methylation data. (default: FALSE)
 
 
 # Examples of usage:
@@ -42,9 +42,9 @@ docker run --rm -v "/your/data/here:/data entropic_ranks Rscript Entropic_Ranks.
 
 Full-parameter usage (using a data origin file, supervised without output files and plots):
 
-docker run --rm -v /your/data/here:/data entropic_ranks Rscript Entropic_Ranks.R /data/GSE_data_set.txt /data/vec.txt /data/data_origin_file.txt 1 TRUE FALSE FALSE FALSE TRUE 2 FALSE
+docker run --rm -v /your/data/here:/data entropic_ranks Rscript Entropic_Ranks.R /data/this_is_my_data_set.txt /data/this_is_my_population_vector.txt /data/this_is_my_data_origin_file.txt 1 TRUE FALSE FALSE FALSE TRUE 2 FALSE
 
 
-Default usage (the two input files *must* be named "data_table.txt" and "population_vector.txt"):
+Default usage (the two input files *must* be named "data_table.txt" and "population_vector.txt" and all samples have the same origin):
 
 docker run --rm -v /your/data/here:/data entropic_ranks
