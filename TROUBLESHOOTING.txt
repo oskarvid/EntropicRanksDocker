@@ -1,0 +1,15 @@
+For all issues, questions and suggestions, contact:
+
+Hector-Xavier de Lastic
+e-mail: hector.xavier.de.lastic@gmail.com
+
+---------------------------------------------------
+
+IMPORTANT NOTE:
+
+The docker may fail to build at times.
+Almost always, this is due to incomplete semi-regular updates of the images upon which it is based.
+
+For this eventuality, the latest successfully built & tested version of the docker image in a .tar format is hosted here:
+
+https://drive.google.com/open?id=1YsLL-1rNQh8UUK_y-tF-kCqhfCpNh3xl
