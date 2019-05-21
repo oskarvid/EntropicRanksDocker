@@ -12,4 +12,4 @@ Almost always, this is due to incomplete semi-regular updates of the images upon
 
 For this eventuality, the latest successfully built & tested version of the docker image in a .tar format is hosted here:
 
-https://drive.google.com/open?id=1YsLL-1rNQh8UUK_y-tF-kCqhfCpNh3xl
+https://drive.google.com/open?id=1I3JzfdJubR2t-7aKEGEh3508E2GHGMPg
