@@ -115,10 +115,29 @@ isolate_significant_elements <- function(ordered_vector,granularity=1,supervised
 
 entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=FALSE,export_plots=FALSE,path=NULL)
 {
+  if (export_plots)
+  {
+    if (is.null(path))
+      path <- paste(getwd(),"Entropic Ranks plots",sep="/")
+    if (!file.exists(path))
+      dir.create(path)
+    write_file <- file.exists(paste(path,"Sliding window distributions.txt",sep="/"))
+    if (write_file)
+      write_file <- length(read.table(paste(path,"Sliding window distributions.txt",sep="/"),nrows=1,header=FALSE))<42
+  }
+  
   differences <- ordered_vector[seq(2,length(ordered_vector))]-ordered_vector[seq(1,length(ordered_vector)-1)]
   entropy_plotter <- vector(length=floor((length(differences)-window_size)/step_up))
+  if (export_plots)
+    if (write_file || !file.exists(paste(path,"Sliding window distributions.txt",sep="/")))
+      mean_differences <- c()
   for (i in 0:(length(entropy_plotter)-1))
+  {
     entropy_plotter[i+1] <- entropy(discretize(differences[(i*step_up+1):(i*step_up+window_size)],numBins=bins),method="Laplace")
+    if (export_plots)
+      if (write_file || !file.exists(paste(path,"Sliding window distributions.txt",sep="/")))
+        mean_differences <- c(mean_differences,mean(differences[(i*step_up+1):(i*step_up+window_size)]))
+  }
   entropy_clusters <- eclust(entropy_plotter, "kmeans", k=2, nstart=200, graph=FALSE)
   
   if (verbose)
@@ -127,12 +146,20 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
     barplot(entropy_plotter,border=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1)],col=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1)],xlab=c("Granularity = ",step_up),ylab=c("Window size = ",window_size),main=c(bins," bins"),names.arg=seq(length(entropy_plotter))*step_up)
     barplot(entropy_clusters$silinfo$widths$sil_width,border=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1],col=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1],ylim=c(-0.3,1),ylab="Silhouette width",xlab="Clustered elements",main="K-means clustering quality")
   }
+      
   if (export_plots)
   {
-    if (is.null(path))
-      path <- paste(getwd(),"Entropic Ranks plots",sep="/")
-    if(!file.exists(path))
-      dir.create(path)
+    if (!file.exists(paste(path,"Sliding window distributions.txt",sep="/")))
+    {
+      write.table(file=paste(path,"Sliding window distributions.txt",sep="/"),cbind(differences,differences/max(differences)),row.names=seq(length(differences)),col.names=c("Differences","Ratio_to_maximum"),sep="\t",quote=FALSE)
+      write_file <- TRUE
+    }
+    if (write_file)
+    {
+      distributions <- read.table(paste(path,"Sliding window distributions.txt",sep="/"),header=TRUE)
+      write.table(file=paste(path,"Sliding window distributions.txt",sep="/"),cbind(distributions,c(mean_differences,rep(NA,dim(distributions)[1]-length(mean_differences))),c(mean_differences/max(mean_differences),rep(NA,dim(distributions)[1]-length(mean_differences)))),row.names=seq(dim(distributions)[1]),col.names=c(colnames(distributions),paste("Mean_difference_window_size",window_size,sep="_"),paste("Ratio_to_maximum_mean_window_size",window_size,sep="_")),sep="\t",quote=FALSE)
+      rm(distributions,mean_differences)
+    }
     png(file=file.path(path,paste("Entropy - ",bins," bins - ",window_size," window size",".png", sep = "")),width=640,height=640)
     barplot(entropy_plotter,border=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1)],col=c("gold1","dodgerblue3")[as.vector(as.integer(entropy_clusters$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1)],xlab=c("Granularity = ",step_up),ylab=c("Window size = ",window_size),main=c(bins," bins"),names.arg=seq(length(entropy_plotter))*step_up)
     dev.off()
@@ -140,7 +167,6 @@ entropic_analysis <- function(ordered_vector,step_up=1,window_size,bins,verbose=
     barplot(entropy_clusters$silinfo$widths$sil_width,border=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1],col=c("gold1","dodgerblue3")[as.integer(entropy_clusters$silinfo$widths$cluster==(as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1))+1],ylim=c(-0.3,1),ylab="Silhouette width",xlab="Clustered elements",main="K-means clustering quality")
     dev.off()
   }
-  
   return(seq(length(entropy_clusters$cluster))[entropy_clusters$cluster!=as.integer(entropy_clusters$centers==max(entropy_clusters$centers))[1]+1][1]-1)
 }
 
