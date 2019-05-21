@@ -12,7 +12,7 @@ RUN R -e "install.packages('factoextra', dependencies = TRUE)"
 RUN cd .. && rm -R tmp
 RUN mkdir /data
 RUN mkdir /home/Entropic_Ranks
-ADD Entropic_Ranks_v1.0.R /home/Entropic_Ranks/Entropic_Ranks.R
+ADD Entropic_Ranks.R /home/Entropic_Ranks/Entropic_Ranks.R
 
 WORKDIR /home/Entropic_Ranks
 
