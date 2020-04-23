@@ -12,8 +12,8 @@ RUN R -e "install.packages('factoextra', dependencies = TRUE)"
 RUN cd .. && rm -R tmp
 RUN mkdir /data
 RUN mkdir /home/Entropic_Ranks
-ADD Entropic_Ranks.R /home/Entropic_Ranks/Entropic_Ranks.R
+ADD EntropicRanks.R /home/Entropic_Ranks/Entropic_Ranks.R
 
 WORKDIR /home/Entropic_Ranks
 
-CMD Rscript Entropic_Ranks.R /data/data_table.txt /data/population_vector.txt null 1 FALSE FALSE TRUE TRUE TRUE 2 FALSE
+#CMD Rscript Entropic_Ranks.R /data/data_table.txt /data/population_vector.txt null 1 FALSE FALSE TRUE TRUE TRUE 2 FALSE
