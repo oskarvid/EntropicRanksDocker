@@ -50,5 +50,7 @@ container = client.containers.run(
 			'bind':'/data',
 			'mode':'rw',
 		},
-	}, detach = False
+	}, detach = True
 )
+for line in container.logs(stream=True):
+	print line.strip()
