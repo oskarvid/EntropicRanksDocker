@@ -5,12 +5,12 @@ entropic_ranks
 Description: Performs an Entropic Ranks analysis on a data set, returning a list containing downregulated and upregulated features. May be used supervised, returning the full feature list and printing the suggested cutoff points for later manual trimming, or unsupervised, returning only the information-rich feature list. In the unsupervised mode, the lists of information-rich features may be exported as tab-delimited .txt files automatically.
 
 ## Usage:
-###Usage with the python script
+### Usage with the python script
 Begin by editing the `config.yml` file based on your requirements, input files etc.  
 To run the tool you simply run `./start.py` and everything will happen automatically.  
 The progress bar in the R script currently does not work when starting the tool with the python script.
 
-###Usage within an R script
+### Usage within an R script
 ```r
 entropic_ranks(data_under_analysis, population_vector, data_origin=NULL, granularity=1, supervised=FALSE, process_log=FALSE, export_plots=FALSE, create_output_files=FALSE, is_logged=TRUE, logbase=2, huge_feature_list=FALSE)
 ```
