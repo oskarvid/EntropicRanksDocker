@@ -45,18 +45,18 @@ entropic_ranks(data_under_analysis, population_vector, data_origin=NULL, granula
 
 Full-parameter usage (using default values as described above):
 
-```r
+```bash
 docker run --rm -v "/your/data/here:/data entropic_ranks Rscript Entropic_Ranks.R /data/GSE_data_set.txt /data/vec.txt null 1 FALSE FALSE TRUE TRUE TRUE 2 FALSE
 ```
 
 Full-parameter usage (using a data origin file, supervised without output files and plots):
 
-```r
+```bash
 docker run --rm -v /your/data/here:/data entropic_ranks Rscript Entropic_Ranks.R /data/this_is_my_data_set.txt /data/this_is_my_population_vector.txt /data/this_is_my_data_origin_file.txt 1 TRUE FALSE FALSE FALSE TRUE 2 FALSE
 ```
 
 Default usage (the two input files *must* be named "data_table.txt" and "population_vector.txt" and all samples have the same origin):
 
-```r
+```bash
 docker run --rm -v /your/data/here:/data entropic_ranks
 ```
